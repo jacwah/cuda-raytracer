@@ -4,6 +4,8 @@
 #SBATCH -N 1
 #SBATCH -t 10:0:0
 #SBATCH -a 0-1
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=jacobwah@kth.se
 
 # sbatch --gres=gpu:K420:1 perf_tegner.sh sm30
 # sbatch --gres=gpu:K80:2 perf_tegner.sh sm37
