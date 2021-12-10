@@ -1,6 +1,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <time.h>
 
 #define BG_COLOR (float3{0.0f, 0.0f, 0.0f})
 
@@ -149,6 +150,13 @@ void write_ppm(const char *fname, uint8_t *image, unsigned w, unsigned h)
     fclose(fp);
 }
 
+double get_time()
+{
+    timespec now;
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    return now.tv_sec + 1e-9*now.tv_nsec;
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 5) {
@@ -166,11 +174,15 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    double start = get_time();
+
     size_t image_size = 3UL*w*h;
     uint8_t *image = (uint8_t*)malloc(image_size);
 
     uint8_t *image_d;
     cudaMalloc(&image_d, image_size);
+
+    double after_init = get_time();
 
     dim3 block_size(block, block);
     dim3 grid((w+block-1)/block, (h+block-1)/block);
@@ -178,5 +190,15 @@ int main(int argc, char **argv)
 
     cudaMemcpy(image, image_d, image_size, cudaMemcpyDefault);
 
+    double after_exec = get_time();
+
     write_ppm(fname, image, w, h);
+
+    double end = get_time();
+
+    printf("Total time:  %e\n", end-start);
+    printf("---------------------\n");
+    printf("init:  %e\n", after_init-start);
+    printf("exec:  %e\n", after_exec-after_init);
+    printf("write: %e\n", end-after_exec);
 }
