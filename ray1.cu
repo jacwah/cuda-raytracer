@@ -183,6 +183,13 @@ int main(int argc, char **argv)
     ftruncate(fd, fsize);
     char *file = (char*)mmap(NULL, fsize, PROT_WRITE, MAP_SHARED, fd, 0);
 
+    if (file == MAP_FAILED) {
+        perror("mmap failed");
+        return 1;
+    }
+
+    cudaHostRegister(file, fsize, cudaHostRegisterDefault);
+
     write_fixed_header(file, w, h);
     char *image = file + FIXED_HEADER_SIZE;
 
@@ -199,6 +206,7 @@ int main(int argc, char **argv)
 
     double after_exec = get_time();
 
+    cudaHostUnregister(file);
     munmap(file, fsize);
     close(fd);
 

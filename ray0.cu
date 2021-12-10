@@ -178,6 +178,8 @@ int main(int argc, char **argv)
 
     size_t image_size = 3UL*w*h;
     uint8_t *image = (uint8_t*)malloc(image_size);
+    //uint8_t *image;
+    //cudaMallocHost(&image, image_size);
 
     uint8_t *image_d;
     cudaMalloc(&image_d, image_size);

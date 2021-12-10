@@ -5,3 +5,8 @@ all: $(out)
 
 %.out: %.cu
 	nvcc -O3 -g -o $@ $^
+
+PHONY: clean
+
+clean:
+	$(RM) $(out)
