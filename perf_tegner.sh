@@ -2,7 +2,8 @@
 
 #SBATCH -A edu21.dd2360
 #SBATCH -N 1
-#SBATCH -t 0:10:0
+#SBATCH -t 0:30:0
+#SBATCH -a 0-1
 
 # sbatch --gres=gpu:K420:1 perf_tegner.sh sm30
 # sbatch --gres=gpu:K80:2 perf_tegner.sh sm37
@@ -10,6 +11,11 @@
 TIMEFORMAT=%R
 
 outdir=${1?}
+
+# Pinned version
+if [ ${SLURM_ARRAY_TASK_ID} = 1 ]; then
+    outdir=${outdir}p
+fi
 
 image_dir="/cfs/klemming/scratch/j/jacobwah/${outdir}-${SLURM_JOB_ID}"
 time_dir="/afs/pdc.kth.se/home/j/jacobwah/Private/dd2360-time/${outdir}-${SLURM_JOB_ID}"
