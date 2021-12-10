@@ -179,7 +179,7 @@ int main(int argc, char **argv)
 
     size_t image_size = 3UL*w*h;
     off_t fsize = FIXED_HEADER_SIZE + image_size;
-    int fd = open(fname, O_RDWR|O_TRUNC);
+    int fd = open(fname, O_RDWR|O_TRUNC|O_CREAT);
     ftruncate(fd, fsize);
     char *file = (char*)mmap(NULL, fsize, PROT_WRITE, MAP_SHARED, fd, 0);
 
