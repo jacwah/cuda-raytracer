@@ -2,7 +2,7 @@
 
 #SBATCH -A edu21.dd2360
 #SBATCH -N 1
-#SBATCH -t 0:30:0
+#SBATCH -t 10:0:0
 #SBATCH -a 0-1
 
 # sbatch --gres=gpu:K420:1 perf_tegner.sh sm30
