@@ -1,6 +1,16 @@
 import numpy as np
+import matplotlib as mpl
+mpl.use("Agg")
 import matplotlib.pyplot as plt
-w, h = 400, 400  # Size of the screen in pixels.
+from sys import argv
+
+if len(argv) != 4:
+        print("usage: raytracing.py w h fname")
+        exit(1)
+
+w = int(argv[1])
+h = int(argv[2])
+fname = argv[3]
 
 def normalize(x):
         # This function normalizes a vector.
@@ -89,4 +99,5 @@ img = run()
 fig, ax = plt.subplots(1, 1, figsize=(10, 10))
 ax.imshow(img)
 ax.set_axis_off()
-plt.show()
+
+plt.savefig(fname)

@@ -2,6 +2,7 @@
 
 #SBATCH -A edu21.dd2360
 #SBATCH -N 1
+#SBATCH -t 0:10:0
 
 # sbatch --gres=gpu:K420:1 perf_tegner.sh sm30
 # sbatch --gres=gpu:K80:2 perf_tegner.sh sm37
@@ -24,9 +25,10 @@ for dim in 10 100 1000 10000 100000; do
             time_file="${time_dir}/${v}-${dim}-${block}"
             for i in $(seq 10); do
                 image_file="${image_dir}/${v}-${dim}-${block}-${i}.ppm"
-                cmd="${outdir}/ray${v}.out ${dim} ${dim} ${image_file} ${block}"
+                cmd="srun ${outdir}/ray${v}.out ${dim} ${dim} ${image_file} ${block}"
                 echo ${cmd}
-                { time ${cmd}; } 2>> ${time_file}
+                { time ${cmd} 2>&1; } 2>> ${time_file}
+            done
         done
     done
 done
