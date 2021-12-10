@@ -177,9 +177,13 @@ int main(int argc, char **argv)
     double start = get_time();
 
     size_t image_size = 3UL*w*h;
-    uint8_t *image = (uint8_t*)malloc(image_size);
-    //uint8_t *image;
-    //cudaMallocHost(&image, image_size);
+    uint8_t *image;
+
+#ifdef PINNED
+    cudaMallocHost(&image, image_size);
+#else
+    image = (uint8_t*)malloc(image_size);
+#endif
 
     uint8_t *image_d;
     cudaMalloc(&image_d, image_size);

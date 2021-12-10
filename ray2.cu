@@ -184,7 +184,12 @@ int main(int argc, char **argv)
     size_t image_size = 3UL*w*h;
     size_t written = 0;
     uint8_t *chunk_buf;
+
+#ifdef PINNED
     cudaMallocHost(&chunk_buf, NUM_STREAMS*chunk_size);
+#else
+    chunk_buf = (uint8_t*)malloc(NUM_STREAMS*chunk_size);
+#endif
 
     uint8_t *image_d;
     cudaMalloc(&image_d, image_size);
