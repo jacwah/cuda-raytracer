@@ -21,7 +21,7 @@
 #define CAMERA_POS (float3{0.0f, 0.0f, -1.0f})
 #define CAMERA_FOCUS (float3{0.0f, 0.0f, 0.0f})
 
-#define NUM_STREAMS 2
+#define NUM_STREAMS 4
 
 __device__ float3 operator*(float a, float3 v)
 {
