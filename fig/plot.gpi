@@ -7,10 +7,12 @@ set yrange [0:*]
 set grid
 set key bottom box opaque height 1 width 1
 
+if (strstrt(ARG1, "100000") != 0) set key top
+
 set ylabel "Execution time (s)"
 #set xlabel "Configuration"
 
 verlabel(i) = word("fwrite mmap streams fwrite(p) mmap(p) streams(p)", i+1)
 block(i) = word("4 8 16 32", (i+1)/2)
 
-plot for [i=1:7:2] 'results/sm30x-1000.dat' u i:i+1:xticlabels(verlabel(int($0))) t block(i)."x".block(i),\
+plot for [i=1:7:2] ARG1 u i:i+1:xticlabels(verlabel(int($0))) t block(i)."x".block(i),\

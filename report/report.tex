@@ -60,9 +60,29 @@ We evaluate the performance of different GPU configurations at image size
 \end{figure}
 
 \begin{figure}
-    \centering
-    \includegraphics{../fig/plot.pdf}
-    \caption{Performance results. Bars show average, whiskers show
+    \begin{subfigure}{\linewidth}
+        \includegraphics{../fig/sm30-1000.pdf}
+        \caption{NVIDIA Quadro K240}
+    \end{subfigure}
+    \begin{subfigure}{\linewidth}
+        \includegraphics{../fig/sm37-1000.pdf}
+        \caption{NVIDIA Tesla K80}
+    \end{subfigure}
+    \caption{Performance results for 1000x1000 image with various block sizes. Bars show average, whiskers show
+    standard deviation.}
+\end{figure}
+
+\begin{figure}
+    \begin{subfigure}{\linewidth}
+        \includegraphics{../fig/sm30-100000.pdf}
+        \caption{NVIDIA Quadro K240}
+    \end{subfigure}
+    \begin{subfigure}{\linewidth}
+        %\includegraphics{../fig/sm37-100000.pdf}
+        \caption{NVIDIA Tesla K80}
+    \end{subfigure}
+    \caption{Performance results for 100000x100000 image with various block
+        sizes. Bars show average, whiskers show
     standard deviation.}
 \end{figure}
 
