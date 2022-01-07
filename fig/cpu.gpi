@@ -1,0 +1,9 @@
+set yrange [0:*]
+set logscale x
+
+set xlabel "Picture dimension"
+set ylabel "Execution time (s)"
+
+#plot "cpu.dat" u 1:($2-$3):($2+$3) w filledcurve, "" u 1:($4-$5):($4+$5) w filledcurve
+#plot "cpu.dat" u 1:($2/$1) w lp, "" u 1:($4/$1) w lp
+plot "cpu.dat" u 1:2 w lp t "CPU", "" u 1:4 w lp t "GPU"
