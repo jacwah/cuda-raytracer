@@ -1,8 +1,13 @@
+set term pdfcairo size 2.5,2.0
+set output "cpu.pdf"
+
 set yrange [0:*]
 set logscale x
 
-set xlabel "Picture dimension"
+set xlabel "Image dimension"
 set ylabel "Execution time (s)"
+
+set key left width 1 height 1
 
 #plot "cpu.dat" u 1:($2-$3):($2+$3) w filledcurve, "" u 1:($4-$5):($4+$5) w filledcurve
 #plot "cpu.dat" u 1:($2/$1) w lp, "" u 1:($4/$1) w lp
